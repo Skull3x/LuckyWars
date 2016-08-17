@@ -1,6 +1,6 @@
-name: LuckyWarsDoDo
-main: KaitoDoDo\LuckyWars\LuckyWars
-author: KaitoDoDo
+name: LuckyWars
+main: LuckyWars\LuckyWars
+author: KaitoDoDo, GamaK
 version: 2.0.0 Subnor
 api: [1.0.0, 2.0.0]
 
