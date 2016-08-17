@@ -6,7 +6,7 @@ Contrato de Licencia de Software de Usuario Final (“EULA”):
 Según los distintos componentes de software de código abierto autorizados y según los términos de acuerdos aplicables de licencia de código abierto, el Software de código abierto está compuesto por componentes de software individuales, cada uno de los cuales cuenta con su propio derecho de autor y sus propias condiciones de licencia aplicable. Este Software es de código abierto, que incluye contenido creado por KaitoDoDo que no se puede modificar (Any redistribution of this can be penalized):
  * Más información en: http://www.licenciasonline.com/
  * */
-namespace KaitoDoDo\LuckyWars;
+namespace LuckyWars;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\scheduler\PluginTask;
@@ -32,7 +32,7 @@ use pocketmine\math\Vector3;
 
 class LuckyWars extends PluginBase implements Listener {
 
-    public $prefix = TE::GRAY . "[" . TE::YELLOW . TE::BOLD . "Lucky" . TE::GREEN . "Wars" . TE::RESET . TE::GRAY . "]";
+    public $prefix = TE::DARK_AQUA . "[LuckyWars];
 	public $mode = 0;
 	public $arenas = array();
 	public $currentLevel = "";
@@ -211,7 +211,7 @@ class LuckyWars extends PluginBase implements Listener {
                                         {
                                         $config->set($args[0] . "StartTime", 10);
                                         $config->save();
-                                        $player->sendMessage($this->prefix . "§aEmpezando en 10...");
+                                        $player->sendMessage($this->prefix . "§aStaruji za 10...");
                                         }
                                         }
                                         else
@@ -222,7 +222,7 @@ class LuckyWars extends PluginBase implements Listener {
                                             {
                                             $config->set($level . "StartTime", 10);
                                             $config->save();
-                                            $player->sendMessage($this->prefix . "§aEmpezando en 10...");
+                                            $player->sendMessage($this->prefix . "§aStartuji za 10...");
                                             }
                                         }
                                 }
@@ -240,11 +240,11 @@ class LuckyWars extends PluginBase implements Listener {
 		{
 			if(($this->mode==26)&&(in_array($player->getName(), $this->op)))
 			{
-				$tile->setText(TE::AQUA . "[Unirse]",TE::YELLOW  . "0 / 12","§f" . $this->currentLevel,$this->prefix);
+				$tile->setText(TE::AQUA . "[Join]",TE::YELLOW  . "0 / 12","§f" . $this->currentLevel,$this->prefix);
 				$this->refreshArenas();
 				$this->currentLevel = "";
 				$this->mode = 0;
-				$player->sendMessage($this->prefix . "Arena Registered!");
+				$player->sendMessage($this->prefix . "Arena byla registrovana!");
                                 array_shift($this->op);
 			}
 			else
@@ -252,7 +252,7 @@ class LuckyWars extends PluginBase implements Listener {
 				$text = $tile->getText();
 				if($text[3] == $this->prefix)
 				{
-					if($text[0]==TE::AQUA . "[Unirse]")
+					if($text[0]==TE::AQUA . "[Join]")
 					{
 						$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
                                                 $slots = new Config($this->getDataFolder() . "/slots.yml", Config::YAML);
@@ -266,14 +266,14 @@ class LuckyWars extends PluginBase implements Listener {
                                                             goto with;
                                                     }
                                                 }
-                                                $player->sendMessage($this->prefix."No hay Slots");
+                                                $player->sendMessage($this->prefix."Nemas dost slotu");
                                                 goto sinslots;
                                                 with:
                                                 $slots->save();
-                                                $player->sendMessage($this->prefix . "has entrado al juego");
+                                                $player->sendMessage($this->prefix . "vstoupil do hry");
                                                 foreach($level->getPlayers() as $playersinarena)
                                                 {
-                                                $playersinarena->sendMessage($player->getNameTag() ." ha entrado a la partida");
+                                                $playersinarena->sendMessage($player->getNameTag() ." vstoupil do areny");
                                                 }
 						$spawn = new Position($thespawn[0]+0.5,$thespawn[1],$thespawn[2]+0.5,$level);
 						$level->loadChunk($spawn->getFloorX(), $spawn->getFloorZ());
@@ -288,7 +288,7 @@ class LuckyWars extends PluginBase implements Listener {
 					}
 					else
 					{
-						$player->sendMessage($this->prefix . "No puedes entrar");
+						$player->sendMessage($this->prefix . "Neni mozno vstoupit");
 					}
 				}
 			}
@@ -297,7 +297,7 @@ class LuckyWars extends PluginBase implements Listener {
 		{
 			$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
 			$config->set($this->currentLevel . "Spawn" . $this->mode, array($block->getX(),$block->getY()+1,$block->getZ()));
-			$player->sendMessage($this->prefix . "Spawn " . $this->mode . " has been registered!");
+			$player->sendMessage($this->prefix . "Spawn " . $this->mode . " byl registrovan!");
 			$this->mode++;
 			$config->save();
 		}
@@ -305,10 +305,10 @@ class LuckyWars extends PluginBase implements Listener {
 		{
 			$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
 			$config->set($this->currentLevel . "Spawn" . $this->mode, array($block->getX(),$block->getY()+1,$block->getZ()));
-			$player->sendMessage($this->prefix . "Spawn " . $this->mode . " has been registered!");
+			$player->sendMessage($this->prefix . "Spawn " . $this->mode . " byl registrovan!");
 			$config->set("arenas",$this->arenas);
                         $config->set($this->currentLevel . "inicio", 0);
-			$player->sendMessage($this->prefix . "Touch Sign to register Arena!");
+			$player->sendMessage($this->prefix . "Klikni na cedulku pro registraci!");
 			$spawn = $this->getServer()->getDefaultLevel()->getSafeSpawn();
 			$this->getServer()->getDefaultLevel()->loadChunk($spawn->getFloorX(), $spawn->getFloorZ());
 			$player->teleport($spawn,0,0);
@@ -376,15 +376,15 @@ class RefreshSigns extends PluginTask {
                                         {
                                             $aop=$aop+1;
                                         }
-					$ingame = TE::AQUA . "[Unirse]";
+					$ingame = TE::AQUA . "[Join]";
 					$config = new Config($this->plugin->getDataFolder() . "/config.yml", Config::YAML);
 					if($config->get($namemap . "PlayTime")!=780)
 					{
-						$ingame = TE::DARK_PURPLE . "[En juego]";
+						$ingame = TE::DARK_PURPLE . "[InGame]";
 					}
 					elseif($aop>=12)
 					{
-						$ingame = TE::GOLD . "[Lleno]";
+						$ingame = TE::GOLD . "[Full]";
 					}
 					$t->setText($ingame,TE::YELLOW  . $aop . " / 12",$text[2],$this->prefix);
 				}
@@ -440,7 +440,7 @@ class GameSender extends PluginTask {
 								$timeToStart--;
 								foreach($playersArena as $pl)
 								{
-									$pl->sendPopup(TE::YELLOW."Comenzando en ".TE::GREEN . $timeToStart.TE::RESET);
+									$pl->sendPopup(TE::YELLOW."Hra startuje za ".TE::GREEN . $timeToStart.TE::RESET);
                                                                         if($timeToStart<=5)
                                                                         {
                                                                         $levelArena->addSound(new PopSound($pl));
@@ -484,7 +484,7 @@ class GameSender extends PluginTask {
                                                                 {
                                                                     foreach($playersArena as $pl)
                                                                         {
-                                                                        $pl->sendPopup(TE::BOLD.TE::GOLD.$aop." ".TE::AQUA."Jugadores restantes".TE::RESET);
+                                                                        $pl->sendPopup(TE::BOLD.TE::GOLD.$aop." ".TE::AQUA."Potrebujes vice hracu".TE::RESET);
                                                                         }
                                                                 }
 								$time--;
@@ -498,8 +498,8 @@ class GameSender extends PluginTask {
 									foreach($playersArena as $pl)
 									{
 										$pl->sendMessage(TE::YELLOW.">--------------------------------");
-                                                                                $pl->sendMessage(TE::YELLOW.">".TE::RED."Atención: ".TE::GREEN."El juego ha comenzado");
-                                                                                $pl->sendMessage(TE::YELLOW.">".TE::WHITE."usando el mapa " .TE::AQUA. $arena);
+                                                                                $pl->sendMessage(TE::YELLOW.">".TE::GREEN."Hra odstartovala");
+                                                                                $pl->sendMessage(TE::YELLOW.">".TE::WHITE."Hrajes na mape " .TE::AQUA. $arena);
                                                                                 $pl->sendMessage(TE::YELLOW.">--------------------------------");
 									}
 								}
@@ -507,8 +507,8 @@ class GameSender extends PluginTask {
 								{
 									foreach($playersArena as $pl)
 									{
-                                                                                $pl->sendMessage(TE::YELLOW.">".TE::AQUA."Plugin make by KaitoDoDoYT");
-                                                                                $pl->sendMessage(TE::YELLOW.">".TE::AQUA."Visita".TE::GREEN." kaicraft1.ddns.net:19132");
+                                                                                $pl->sendMessage(TE::YELLOW.">".TE::AQUA."Hrajes na serveru PotionCraft");
+                                                                                $pl->sendMessage(TE::YELLOW.">".TE::AQUA."potioncraft.mcpe.me:27666");
 									}
 								}
 								if($time<300)
@@ -518,19 +518,19 @@ class GameSender extends PluginTask {
 									{
 										foreach($playersArena as $pl)
 										{
-											$pl->sendMessage($this->prefix .TE::YELLOW. $minutes . " " .TE::GREEN. "minutos restantes");
+											$pl->sendMessage($this->prefix .TE::YELLOW. $minutes . " " .TE::GREEN. "min");
 										}
 									}
 									else if($time == 30 || $time == 15 || $time == 10 || $time ==5 || $time ==4 || $time ==3 || $time ==2 || $time ==1)
 									{
 										foreach($playersArena as $pl)
 										{
-											$pl->sendMessage($this->prefix .TE::YELLOW. $time . " " .TE::GREEN. "segundos restantes");
+											$pl->sendMessage($this->prefix .TE::YELLOW. $time . " " .TE::GREEN. "sec");
 										}
 									}
 									if($time <= 0)
 									{
-                                                                            $this->plugin->getServer()->broadcastMessage($this->prefix .TE::GREEN."No hay ganadores en la arena ".TE::AQUA.$arena);
+                                                                            $this->plugin->getServer()->broadcastMessage($this->prefix .TE::GREEN."Nikdo nevyhral v arene ".TE::AQUA.$arena);
 										foreach($playersArena as $pl)
 										{
 											$pl->teleport($this->plugin->getServer()->getDefaultLevel()->getSafeSpawn(),0,0);
@@ -553,7 +553,7 @@ class GameSender extends PluginTask {
 						{
                                                     foreach($playersArena as $pl)
                                                     {
-                                                            $pl->sendPopup(TE::DARK_AQUA . "Faltan Jugadores" .TE::RESET);
+                                                            $pl->sendPopup(TE::DARK_AQUA . "Potrebujes vice hracu" .TE::RESET);
                                                     }
                                                     $config->set($arena . "PlayTime", 780);
                                                     $config->set($arena . "StartTime", 30);
