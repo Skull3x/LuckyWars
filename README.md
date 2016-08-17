@@ -1,2 +1,3 @@
 # LuckyWars
-Edited LuckyWarsDoDo, By KaitoDoDo
+
+Czech version of LuckyWars BY KaitoDoDo
