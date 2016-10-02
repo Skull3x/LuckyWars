@@ -32,7 +32,7 @@ use pocketmine\math\Vector3;
 
 class LuckyWars extends PluginBase implements Listener {
 
-    public $prefix = TE::DARK_AQUA . "[LuckyWars];
+    public $prefix = TE::DARK_AQUA . "[LuckyWars]";
 	public $mode = 0;
 	public $arenas = array();
 	public $currentLevel = "";
